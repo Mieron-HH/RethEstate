@@ -1,5 +1,14 @@
 import "./_page.scss";
 
-export default function Home() {
-	return <main className="home"></main>;
-}
+// COMPONENTS
+import Navbar from "../components/Navbar/navbar";
+
+const Home = () => {
+	return (
+		<main className="home">
+			<Navbar />
+		</main>
+	);
+};
+
+export default Home;

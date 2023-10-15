@@ -1,2 +1,17 @@
-$mainColor: white;
-$secondaryColor: cyan;
+:root {
+	/* Light Theme */
+	--main__background__color: #ffffff;
+	--main__text__color: #000000;
+	--secondary__background__color: #f5f5f5;
+	--secondary__text__color: #666666;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Dark Theme */
+		--main__background__color: #0a0a0a;
+		--main__text__color: #ffffff;
+		--secondary__background__color: #1a1a1a;
+		--secondary__text__color: #dddddd;
+	}
+}
