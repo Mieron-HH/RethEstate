@@ -3,25 +3,40 @@
 import "./_navbar.scss";
 import Image from "next/image";
 import { useAppSelector } from "@/libs/hooks";
+import { motion } from "framer-motion";
 
 // COMPONENTS
 import { Avatar } from "@mui/material";
 
 // ICONS
-// import { IoIosWallet } from "react-icons/io";
+import { IoIosWallet } from "react-icons/io";
 import EastIcon from "@mui/icons-material/East";
-import WalletIcon from "@mui/icons-material/Wallet";
+
+// ANIMATIONS
+import { navLogoAnim, navLinksAnim } from "@/libs/animations";
 
 const Navbar = () => {
 	const { user } = useAppSelector((state) => state.common);
 
 	return (
 		<div className="home__navbar">
-			<div className="logo">
+			<motion.div
+				className="logo"
+				variants={navLogoAnim}
+				initial="hidden"
+				whileInView="show"
+				viewport={{ once: true }}
+			>
 				<Image src="/logo.png" fill alt="" />
-			</div>
+			</motion.div>
 
-			<div className="nav__links">
+			<motion.div
+				className="nav__links"
+				variants={navLinksAnim}
+				initial="hidden"
+				whileInView="show"
+				viewport={{ once: true }}
+			>
 				<div className="nav__item">Home</div>
 				<div className="nav__item">Explore</div>
 				<div className="nav__item">Dashboard</div>
@@ -29,7 +44,7 @@ const Navbar = () => {
 				{user ? (
 					<div className="nav__auth logged__in">
 						<div className="wallet__connector">
-							<WalletIcon className="icon" />
+							<IoIosWallet className="icon" />
 						</div>
 
 						<Avatar className="avatar" src="/images/user-image.jpg" />
@@ -43,7 +58,7 @@ const Navbar = () => {
 						</div>
 					</div>
 				)}
-			</div>
+			</motion.div>
 		</div>
 	);
 };
