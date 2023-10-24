@@ -1,10 +1,10 @@
 "use client";
 
 import "./_navbar.scss";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/libs/hooks";
+import { useAppSelector } from "@/libs/hooks";
 import { motion } from "framer-motion";
 
 // COMPONENTS
@@ -16,17 +16,11 @@ import EastIcon from "@mui/icons-material/East";
 
 // ANIMATIONS
 import { navLogoAnim, navLinksAnim } from "@/libs/animations";
-import { useEffect } from "react";
 
 const Navbar = () => {
-	const dispatch = useAppDispatch();
 	const pathname = usePathname();
 
 	const { user, animateNavbar } = useAppSelector((state) => state.common);
-
-	useEffect(() => {
-		console.log({ pathname });
-	}, []);
 
 	return (
 		<div className="navbar__component">

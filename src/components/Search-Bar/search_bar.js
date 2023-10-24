@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import "./_search_bar.scss";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
+import { motion } from "framer-motion";
 
 // ICONS
 import { BiBath, BiBed } from "react-icons/bi";
@@ -15,6 +16,9 @@ import {
 	setBathroomNumber,
 } from "@/libs/slices/property-slice";
 
+// ANIMATIONS
+import { searchBArAnim } from "@/libs/animations";
+
 const SearchBar = () => {
 	const dispatch = useAppDispatch();
 
@@ -24,7 +28,13 @@ const SearchBar = () => {
 	const inputRef = useRef(null);
 
 	return (
-		<div className="searchBar__component">
+		<motion.div
+			className="searchBar__component"
+			variants={searchBArAnim}
+			initial="hidden"
+			whileInView="show"
+			viewport={{ once: true }}
+		>
 			<div className="input__group text">
 				<input
 					className="input__item"
@@ -32,7 +42,7 @@ const SearchBar = () => {
 					ref={inputRef}
 					value={city}
 					onChange={(e) => {
-						setCity(e.target.value);
+						dispatch(setCity(e.target.value));
 					}}
 					placeholder="Enter a city. e.g New York"
 				/>
@@ -53,7 +63,7 @@ const SearchBar = () => {
 								parseInt(e.target.value) < 100) ||
 							e.target.value === ""
 						)
-							setBedroomNumber(e.target.value);
+							dispatch(setBedroomNumber(e.target.value));
 					}}
 					placeholder="e.g 3"
 				/>
@@ -74,7 +84,7 @@ const SearchBar = () => {
 								parseInt(e.target.value) < 100) ||
 							e.target.value === ""
 						)
-							setBathroomNumber(e.target.value);
+							dispatch(setBathroomNumber(e.target.value));
 					}}
 					placeholder="e.g 2"
 				/>
@@ -87,7 +97,7 @@ const SearchBar = () => {
 			<button className="search__button" type="button">
 				Search
 			</button>
-		</div>
+		</motion.div>
 	);
 };
 

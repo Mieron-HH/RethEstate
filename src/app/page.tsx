@@ -18,8 +18,8 @@ const App = () => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			dispatch(setAnimateNavbar(false));
-		}, 2000);
+			if (animateNavbar) dispatch(setAnimateNavbar(false));
+		}, 1000);
 	}, []);
 
 	return (

@@ -4,6 +4,7 @@
 	--main__text__color: #000000;
 	--secondary__background__color: #f5f5f5;
 	--secondary__text__color: #666666;
+	--input__background__color: #eee;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,5 +14,6 @@
 		--main__text__color: #ffffff;
 		--secondary__background__color: #1a1a1a;
 		--secondary__text__color: #dddddd;
+		--input__background__color: #fff;
 	}
 }
