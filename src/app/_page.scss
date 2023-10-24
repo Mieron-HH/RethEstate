@@ -2,8 +2,9 @@
 @import "@/styles/mixin";
 @import "@/styles/variables";
 
-.home {
+.app {
 	width: 100vw;
 	height: 100vh;
+	position: relative;
 	background-color: var(--main__background__color);
 }

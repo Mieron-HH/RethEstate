@@ -1,0 +1,59 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.hero__component {
+	width: 100%;
+	height: 100%;
+	@include display_flex(row, space-between, center);
+	position: relative;
+	overflow: hidden;
+
+	.hero__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		position: absolute;
+		z-index: 0;
+	}
+
+	.fade {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.4);
+		position: absolute;
+		z-index: 0;
+	}
+
+	.half__circle {
+		width: 70%;
+		height: 100%;
+		@include display_flex(row, flex-start, flex-start);
+		background-color: var(--main__background__color);
+		border-radius: 0 0 100% 0;
+		position: absolute;
+		overflow: hidden;
+
+		.hero__text {
+			width: 60%;
+			margin: 8% 0 0 50px;
+			@include display_flex(column, center, center);
+			text-align: center;
+			color: var(--main__text__color);
+			overflow: hidden;
+
+			.logo {
+				width: 200px;
+				height: 150px;
+				margin-bottom: 20px;
+				position: relative;
+			}
+
+			h3 {
+				margin-bottom: 10px;
+				font-size: 30px;
+				font-weight: 700;
+			}
+		}
+	}
+}
