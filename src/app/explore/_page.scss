@@ -1,0 +1,10 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.explore {
+	width: 100%;
+	height: calc(100% - 80px);
+	@include display_flex(column, flex-start, center);
+	position: relative;
+}
