@@ -1,0 +1,79 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.searchBar__component {
+	width: fit-content;
+	height: fit-content;
+	@include display_flex(row, space-between, center);
+
+	.input__group {
+		height: fit-content;
+		padding: 5px 1px;
+		position: relative;
+
+		.input__item {
+			width: 100%;
+			height: fit-content;
+			padding: 10px 8px;
+			font-size: 15px;
+			background-color: var(--main__text__color);
+			border-radius: 5px;
+			border: none;
+
+			&:hover {
+				border-radius: 7px;
+
+				&::placeholder {
+					font-size: 14px;
+				}
+			}
+		}
+
+		.label__icon {
+			width: fit-content;
+			height: fit-content;
+			position: absolute;
+			top: calc(50% - 12.5px);
+			right: 3px;
+			z-index: 1;
+
+			.icon {
+				font-size: 23px;
+			}
+		}
+	}
+
+	.input__group.text {
+		width: 49.5%;
+	}
+
+	.input__group.number {
+		width: 15%;
+
+		.input-item {
+			padding-left: 20%;
+		}
+	}
+
+	.search__button {
+		@include reset();
+		width: 19%;
+		height: 40px;
+		background: linear-gradient(to right, #214e6c, #4095ce);
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+		border-radius: 5px;
+		border: none;
+		cursor: pointer;
+
+		&:hover {
+			background: linear-gradient(270deg, #f82a7e 0%, #752a90 100%);
+		}
+
+		&:active {
+			opacity: 0.8;
+		}
+	}
+}
