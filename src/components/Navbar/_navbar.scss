@@ -2,17 +2,25 @@
 @import "@/styles/mixin";
 @import "@/styles/variables";
 
-.home__navbar {
+.navbar__component {
 	width: 100%;
 	height: 80px;
 	padding: 0px 20px;
 	@include display_flex(row, space-between, center);
-	background-color: var(--secondary__background__color);
+	background-color: var(--main__background__color);
+	position: sticky;
+	top: 0;
+	z-index: 10;
 
 	.logo {
 		width: 90px;
 		height: 60px;
 		position: relative;
+		cursor: pointer;
+
+		&:active {
+			opacity: 0.7;
+		}
 	}
 
 	.nav__links {
@@ -24,6 +32,7 @@
 		.nav__auth {
 			width: fit-content;
 			height: fit-content;
+			text-decoration: none;
 			color: var(--secondary__text__color);
 			margin-left: 25px;
 			font-size: 15px;
@@ -39,6 +48,10 @@
 			&:active {
 				opacity: 0.7;
 			}
+		}
+
+		.nav__item.selected {
+			color: aqua;
 		}
 
 		.nav__auth.logged__in {
@@ -86,7 +99,7 @@
 				margin: 0 3px;
 				padding: 7px 10px;
 				@include display_flex();
-				background-color: var(--main__background__color);
+				background-color: var(--secondary__background__color);
 				border-radius: 50px;
 				cursor: pointer;
 
