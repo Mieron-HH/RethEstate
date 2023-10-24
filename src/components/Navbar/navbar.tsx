@@ -1,7 +1,7 @@
 "use client";
 
 import "./_navbar.scss";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppSelector } from "@/libs/hooks";
@@ -19,8 +19,12 @@ import { navLogoAnim, navLinksAnim } from "@/libs/animations";
 
 const Navbar = () => {
 	const pathname = usePathname();
-
+	const router = useRouter();
 	const { user, animateNavbar } = useAppSelector((state) => state.common);
+
+	const navigateToHome = () => {
+		if (pathname !== "/") router.push("/");
+	};
 
 	return (
 		<div className="navbar__component">
@@ -32,7 +36,22 @@ const Navbar = () => {
 				viewport={{ once: true }}
 				custom={animateNavbar}
 			>
-				<Image src="/logo.png" fill alt="" />
+				<Image
+					className="light"
+					src="/logo-light-theme.png"
+					quality={100}
+					fill
+					alt=""
+					onClick={navigateToHome}
+				/>
+				<Image
+					className="dark"
+					src="/logo-dark-theme.png"
+					quality={100}
+					fill
+					alt=""
+					onClick={navigateToHome}
+				/>
 			</motion.div>
 
 			<motion.div

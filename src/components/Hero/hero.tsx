@@ -33,7 +33,20 @@ const Hero = () => {
 			>
 				<div className="hero__text">
 					<div className="logo">
-						<Image src="/logo.png" fill alt="" />
+						<Image
+							className="light"
+							src="/logo-light-theme.png"
+							quality={100}
+							fill
+							alt=""
+						/>
+						<Image
+							className="dark"
+							src="/logo-dark-theme.png"
+							quality={100}
+							fill
+							alt=""
+						/>
 					</div>
 
 					<h3>

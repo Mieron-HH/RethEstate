@@ -47,12 +47,38 @@
 				height: 150px;
 				margin-bottom: 20px;
 				position: relative;
+
+				.light {
+					display: block;
+				}
+
+				.dark {
+					display: none;
+				}
 			}
 
 			h3 {
 				margin-bottom: 10px;
 				font-size: 30px;
 				font-weight: 700;
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.hero__component {
+		.half__circle {
+			.hero__text {
+				.logo {
+					.light {
+						display: none;
+					}
+
+					.dark {
+						display: block;
+					}
+				}
 			}
 		}
 	}

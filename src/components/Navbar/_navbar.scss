@@ -18,6 +18,14 @@
 		position: relative;
 		cursor: pointer;
 
+		.light {
+			display: block;
+		}
+
+		.dark {
+			display: none;
+		}
+
 		&:active {
 			opacity: 0.7;
 		}
@@ -120,6 +128,20 @@
 			.navAuth__button.transparent {
 				background: none;
 				border: none;
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.navbar__component {
+		.logo {
+			.light {
+				display: none;
+			}
+
+			.dark {
+				display: block;
 			}
 		}
 	}
