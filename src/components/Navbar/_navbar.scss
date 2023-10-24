@@ -7,7 +7,7 @@
 	height: 80px;
 	padding: 0px 20px;
 	@include display_flex(row, space-between, center);
-	background-color: var(--main__background__color);
+	background-color: var(--secondary__background__color);
 	position: sticky;
 	top: 0;
 	z-index: 10;
@@ -99,7 +99,7 @@
 				margin: 0 3px;
 				padding: 7px 10px;
 				@include display_flex();
-				background-color: var(--secondary__background__color);
+				background-color: var(--main__background__color);
 				border-radius: 50px;
 				cursor: pointer;
 
