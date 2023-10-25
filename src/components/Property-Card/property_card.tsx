@@ -1,5 +1,8 @@
-import Image from "next/image";
+"use client";
+
 import "./_property_card.scss";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 // ICONS
 import BathtubIcon from "@mui/icons-material/Bathtub";
@@ -9,9 +12,18 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
+// ANIMATIONS
+import { propertyCardAnim } from "@/libs/animations";
+
 const PropertyCard = () => {
 	return (
-		<div className="propertyCard__component">
+		<motion.div
+			className="propertyCard__component"
+			variants={propertyCardAnim}
+			initial="hidden"
+			whileInView="show"
+			viewport={{ once: true }}
+		>
 			<div className="card__image">
 				<Image src="/house/house.jpg" quality={100} fill alt="" />
 
@@ -64,7 +76,7 @@ const PropertyCard = () => {
 					<div className="address__text">2004 Kennedy Ave - Baltimore - MD</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

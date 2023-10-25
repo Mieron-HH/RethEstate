@@ -3,8 +3,9 @@
 	--main__background__color: #ffffff;
 	--main__text__color: #000000;
 	--secondary__background__color: #f5f5f5;
-	--secondary__text__color: #666666;
+	--secondary__text__color: #555555;
 	--input__background__color: #eee;
+	--property__card__items__container: #ccc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,5 +16,6 @@
 		--secondary__background__color: #1a1a1a;
 		--secondary__text__color: #dddddd;
 		--input__background__color: #fff;
+		--property__card__items__container: rgb(15, 60, 165);
 	}
 }

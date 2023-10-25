@@ -3,13 +3,13 @@
 @import "@/styles/variables";
 
 .propertyCard__component {
-	width: 320px;
-	height: 360px;
+	width: 295px;
+	height: 340px;
 	padding: 8px;
 	@include display_flex(column, space-between);
 	background-color: var(--secondary__background__color);
 	border-radius: 20px;
-	box-shadow: 0px 0px 1px 1px rgba(90, 90, 90, 0.5);
+	box-shadow: 0px 0px 5px -1px var(--secondary__text__color);
 	position: relative;
 	overflow: hidden;
 
@@ -23,6 +23,7 @@
 		cursor: pointer;
 
 		img {
+			border-radius: 12px;
 			transition: scale 0.4s ease-in;
 
 			&:hover {
@@ -43,7 +44,7 @@
 
 			&:hover {
 				.icon {
-					font-size: 24px;
+					scale: 1.1;
 				}
 			}
 
@@ -65,7 +66,7 @@
 		@include display_flex(column);
 		border-radius: 8px;
 		background-color: var(--secondary__background__color);
-		color: white;
+		color: var(--secondary__text__color);
 		position: absolute;
 		top: 15px;
 		left: 15px;
@@ -93,22 +94,25 @@
 			@include display_flex(row, space-between);
 
 			.eth__price {
-				font-size: 18px;
+				color: var(--main__text__color);
+				font-size: 17px;
 				font-weight: bold;
 			}
 
 			.approximate__dollars {
 				padding: 2px 5px;
-				background-color: rgb(15, 60, 165);
+				background-color: var(--property__card__items__container);
 				border-radius: 5px;
-				font-size: 13px;
+				color: var(--secondary__text__color);
+				font-size: 12px;
 				font-style: italic;
 			}
 		}
 
 		.catchy {
+			color: var(--secondary__text__color);
 			font-style: italic;
-			font-size: 14px;
+			font-size: 13px;
 			font-weight: 600;
 		}
 
@@ -121,19 +125,20 @@
 				width: fit-content;
 				height: fit-content;
 				@include display_flex();
-				font-size: 14px;
+				color: var(--secondary__text__color);
+				font-size: 13px;
+				font-weight: 600;
 
 				.item__icon {
 					width: 27px;
 					height: 27px;
 					margin-right: 5px;
 					@include display_flex();
-					background-color: rgb(15, 60, 165);
+					background-color: var(--property__card__items__container);
 					border-radius: 100%;
 
 					.icon {
-						color: white;
-						font-size: 18px;
+						font-size: 17px;
 					}
 
 					.icon.offsetted {
@@ -151,14 +156,14 @@
 
 			.icon {
 				margin-right: 5px;
-				color: white;
+				color: var(--secondary__text__color);
 				font-size: 15px;
 			}
 
 			.address__text {
 				height: 15px;
-				color: white;
-				font-size: 14px;
+				color: var(--secondary__text__color);
+				font-size: 12px;
 				font-weight: 600;
 				line-height: 15px;
 				overflow: hidden;

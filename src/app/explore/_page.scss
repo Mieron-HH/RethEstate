@@ -7,4 +7,36 @@
 	height: calc(100% - 80px);
 	@include display_flex(column, flex-start, center);
 	position: relative;
+
+	.explore__searchBar {
+		width: 100%;
+		height: fit-content;
+		margin-top: 10px;
+		@include display_flex();
+	}
+
+	.explore__body {
+		width: 100%;
+		height: fit-content;
+		margin-top: 20px;
+		padding: 10px;
+		@include display_flex(row, space-between, flex-start);
+
+		.properties__list {
+			width: 70%;
+			height: 73vh;
+			padding: 3px;
+			padding-left: 12px;
+			@include display_flex(row, flex-start, flex-start);
+			flex-wrap: wrap;
+			gap: 35px 20px;
+			overflow-y: scroll;
+		}
+
+		.map__container {
+			width: 28%;
+			height: 73vh;
+			padding: 3px;
+		}
+	}
 }

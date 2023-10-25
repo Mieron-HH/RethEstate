@@ -59,14 +59,45 @@ export const heroHalfCircleAnim = {
 
 export const searchBArAnim = {
 	hidden: {
-		opacity: 0,
 		x: -50,
+		opacity: 0,
 	},
 	show: {
-		opacity: 1,
 		x: 0,
+		opacity: 1,
 		transition: {
 			duration: 0.75,
+			ease: "easeInOut",
+		},
+	},
+};
+
+export const propertyCardAnim = {
+	hidden: {
+		y: -50,
+		opacity: 0,
+	},
+	show: {
+		y: 0,
+		opacity: 1,
+		transition: {
+			delay: 0.1,
+			duration: 0.75,
+			ease: "easeInOut",
+		},
+	},
+};
+
+export const mapAnim = {
+	hidden: {
+		x: 100,
+		opacity: 0,
+	},
+	show: {
+		x: 0,
+		opacity: 1,
+		transition: {
+			duration: 1,
 			ease: "easeInOut",
 		},
 	},
