@@ -11,7 +11,7 @@ import Hero from "@/components/Hero/hero";
 // ACTIONS
 import { setAnimateNavbar } from "@/libs/slices/common-slice";
 
-const App = () => {
+const Home = () => {
 	const dispatch = useAppDispatch();
 
 	const { animateNavbar } = useAppSelector((state) => state.common);
@@ -23,7 +23,7 @@ const App = () => {
 	}, []);
 
 	return (
-		<main className="app">
+		<main className="home">
 			<Navbar />
 
 			<Hero />
@@ -31,4 +31,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default Home;
