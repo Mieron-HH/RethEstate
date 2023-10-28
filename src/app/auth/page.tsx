@@ -5,6 +5,7 @@ import { useAppSelector } from "@/libs/hooks";
 
 // COMPONENTS
 import Navbar from "@/components/Navbar/navbar";
+import Slider from "@/components/Slider/slider";
 
 const Auth = () => {
 	const { authAction } = useAppSelector((state) => state.common);
@@ -15,7 +16,9 @@ const Auth = () => {
 
 			<div className="auth__body">
 				<div className="forms__container">
-					<div className={`slider ${authAction}`}></div>
+					<div className={`slider ${authAction}`}>
+						<Slider />
+					</div>
 
 					<div className="register__container"></div>
 
