@@ -29,18 +29,9 @@ const Slider = () => {
 			</div>
 
 			<div className="slide__indicator">
-				<div
-					className={`indicator ${slide === 1 && "active"}`}
-					onClick={() => setSlide(1)}
-				/>
-				<div
-					className={`indicator ${slide === 2 && "active"}`}
-					onClick={() => setSlide(2)}
-				/>
-				<div
-					className={`indicator ${slide === 3 && "active"}`}
-					onClick={() => setSlide(3)}
-				/>
+				<div className={`indicator ${slide === 1 && "active"}`} />
+				<div className={`indicator ${slide === 2 && "active"}`} />
+				<div className={`indicator ${slide === 3 && "active"}`} />
 			</div>
 		</div>
 	);
