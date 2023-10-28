@@ -43,15 +43,18 @@
 				z-index: 1;
 				transition: left 0.9s ease-in-out;
 				background-color: var(--secondary__background__color);
-				border-radius: 5px;
 				overflow: hidden;
 			}
 
 			.slider.login {
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
 				left: 5px;
 			}
 
 			.slider.register {
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
 				left: 40%;
 			}
 		}
