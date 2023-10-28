@@ -8,6 +8,7 @@ export interface IUser {
 export interface ICommonInitialState {
 	user: IUser | null;
 	animateNavbar: boolean;
+	authAction: string;
 }
 
 export interface IPropertyInitialState {

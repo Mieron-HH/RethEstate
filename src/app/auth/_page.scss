@@ -1,0 +1,59 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.auth {
+	width: 100vw;
+	height: 100vh;
+	@include display_flex(column, flex-start);
+	position: relative;
+
+	.auth__body {
+		width: 100%;
+		height: calc(100% - 80px);
+		@include display_flex();
+
+		.forms__container {
+			width: 65%;
+			height: 85%;
+			padding: 5px;
+			@include display_flex(row, space-between);
+			background-color: var(--secondary__background__color);
+			border-radius: 10px;
+			box-shadow: 0px 0px 6px -2px var(--secondary__text__color);
+			position: relative;
+			overflow: hidden;
+
+			.register__container {
+				width: 40%;
+				height: 100%;
+				padding-right: 5px;
+			}
+
+			.login__container {
+				width: 40%;
+				height: 100%;
+				padding-left: 5px;
+			}
+
+			.slider {
+				width: calc(60% - 5px);
+				height: calc(100% - 10px);
+				position: absolute;
+				z-index: 1;
+				transition: left 0.9s ease-in-out;
+				background-color: var(--secondary__background__color);
+				border-radius: 5px;
+				overflow: hidden;
+			}
+
+			.slider.login {
+				left: 5px;
+			}
+
+			.slider.register {
+				left: 40%;
+			}
+		}
+	}
+}

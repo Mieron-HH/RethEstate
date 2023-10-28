@@ -1,10 +1,11 @@
 "use client";
 
+import { use, useEffect, useState } from "react";
 import "./_navbar.scss";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "@/libs/hooks";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { motion } from "framer-motion";
 
 // COMPONENTS
@@ -14,16 +15,31 @@ import { Avatar } from "@mui/material";
 import { IoIosWallet } from "react-icons/io";
 import EastIcon from "@mui/icons-material/East";
 
+// ACTIONS
+import { setAuthAction } from "@/libs/slices/common-slice";
+
 // ANIMATIONS
 import { navLogoAnim, navLinksAnim } from "@/libs/animations";
 
 const Navbar = () => {
 	const pathname = usePathname();
+	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const { user, animateNavbar } = useAppSelector((state) => state.common);
+	const [isAuthPage, setIsAuthPage] = useState(false);
+
+	useEffect(() => {
+		setIsAuthPage(() => (pathname === "/auth" ? true : false));
+	}, []);
 
 	const navigateToHome = () => {
 		if (pathname !== "/") router.push("/");
+	};
+
+	const navigateToAuth = (action: "login" | "register") => {
+		dispatch(setAuthAction(action));
+
+		router.push("/auth");
 	};
 
 	return (
@@ -74,7 +90,8 @@ const Navbar = () => {
 				>
 					Explore
 				</Link>
-				{user && (
+
+				{!isAuthPage && user && (
 					<div
 						className={`nav__item ${pathname === "/dashboard" && "selected"}`}
 					>
@@ -82,22 +99,34 @@ const Navbar = () => {
 					</div>
 				)}
 
-				{user ? (
-					<div className="nav__auth logged__in">
-						<div className="wallet__connector">
-							<IoIosWallet className="icon" />
-						</div>
+				{!isAuthPage ? (
+					user ? (
+						<div className="nav__auth logged__in">
+							<div className="wallet__connector">
+								<IoIosWallet className="icon" />
+							</div>
 
-						<Avatar className="avatar" src="/images/user-image.jpg" />
-					</div>
+							<Avatar className="avatar" src="/images/user-image.jpg" />
+						</div>
+					) : (
+						<div className="nav__auth logged__out">
+							<div
+								className="navAuth__button transparent"
+								onClick={() => navigateToAuth("login")}
+							>
+								Login
+							</div>
+
+							<div
+								className="navAuth__button"
+								onClick={() => navigateToAuth("register")}
+							>
+								Register <EastIcon className="icon" />
+							</div>
+						</div>
+					)
 				) : (
-					<div className="nav__auth logged__out">
-						<div className="navAuth__button transparent">Login</div>
-
-						<div className="navAuth__button ">
-							Register <EastIcon className="icon" />
-						</div>
-					</div>
+					<div className="nav__auth logged__out"></div>
 				)}
 			</motion.div>
 		</div>
