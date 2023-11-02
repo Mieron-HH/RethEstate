@@ -26,6 +26,10 @@
 				opacity: 0.7;
 			}
 		}
+
+		span.disabled {
+			cursor: progress;
+		}
 	}
 
 	.login__form {
@@ -38,7 +42,7 @@
 			width: 80%;
 			height: fit-content;
 			margin-bottom: 15px;
-			@include display_flex();
+			@include display_flex(column, flex-start, flex-start);
 			position: relative;
 
 			.input__field {
@@ -72,6 +76,14 @@
 					cursor: pointer;
 				}
 			}
+
+			.input__error {
+				width: fit-content;
+				margin-top: 5px;
+				padding-left: 5px;
+				color: rgb(254, 30, 30);
+				font-size: 13px;
+			}
 		}
 
 		.submit__button {
@@ -81,6 +93,7 @@
 			padding: 6px;
 			@include display_flex();
 			background-color: #086bf7;
+			border: none;
 			border-radius: 3px;
 			text-transform: uppercase;
 			color: white;
@@ -91,6 +104,15 @@
 			&:active {
 				opacity: 0.7;
 			}
+
+			.loading__gif {
+				margin-left: 10px;
+			}
+		}
+
+		.submit__button.disabled {
+			opacity: 0.7;
+			cursor: progress;
 		}
 
 		.forgot__password {

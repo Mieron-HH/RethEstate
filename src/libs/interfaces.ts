@@ -1,8 +1,8 @@
 export interface IUser {
-	id: number;
-	name: string;
+	_id: number;
+	firstName: string;
+	lastName: string;
 	email: string;
-	isActive: boolean;
 }
 
 export interface ICommonInitialState {
