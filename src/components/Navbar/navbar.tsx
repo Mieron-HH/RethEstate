@@ -137,8 +137,8 @@ const Navbar = () => {
 					)
 				) : (
 					<Image
-						className="spinning__gif"
-						src="/spinning-gif.gif"
+						className="loading__gif"
+						src="/loading-gif.gif"
 						width={80}
 						height={80}
 						alt=""

@@ -33,12 +33,15 @@ const Login = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<Inputs>({
 		resolver: zodResolver(signInSchema),
 	});
 
 	useEffect(() => {
 		if (session && session.user) {
+			reset();
+
 			dispatch(setUser(session!.user));
 			router.replace("/");
 		}
@@ -47,6 +50,7 @@ const Login = () => {
 	const switchToRegister = () => {
 		if (loading) return;
 
+		reset();
 		dispatch(setAuthAction("register"));
 	};
 
@@ -120,14 +124,14 @@ const Login = () => {
 
 				<button
 					type="submit"
-					className={`submit__button ${loading && "disabled"}`}
+					className={`login__button ${loading && "disabled"}`}
 					disabled={loading}
 				>
 					Sign In
 					{loading && (
 						<Image
 							className="loading__gif"
-							src="/loading-gif.gif"
+							src="/spinning-gif.gif"
 							width={17}
 							height={17}
 							alt=""
