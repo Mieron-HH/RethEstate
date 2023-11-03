@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
-import { Password } from "../libs/services/password";
+
+// SERVICES
+import { Password } from "@/libs/services/password";
 
 interface UserAttr {
 	firstName: string;
 	lastName: string;
-	publicAddress: string;
 	email: string;
 	password: string;
-	SSN: string;
-	phoneNumber: string;
-	DOB: Date;
 }
 
 export interface UserDoc extends UserAttr, mongoose.Document {
@@ -34,9 +32,9 @@ const userSchema = new mongoose.Schema(
 		},
 		email: { type: String, required: true, lowercase: true, trim: true },
 		password: { type: String, required: true },
-		SSN: { type: String, required: true },
-		phoneNumber: { type: String, required: true, trim: true },
-		DOB: { type: Date, required: true },
+		SSN: { type: String, required: false },
+		phoneNumber: { type: String, required: false, trim: true },
+		DOB: { type: Date, required: false },
 	},
 	{
 		toJSON: {
