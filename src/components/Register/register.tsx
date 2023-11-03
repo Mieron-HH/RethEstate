@@ -115,7 +115,7 @@ const Register = () => {
 
 				<div className="input__group">
 					<input
-						type="text"
+						type="email"
 						className="input__field"
 						{...register("email")}
 						placeholder="Email"

@@ -29,6 +29,7 @@ const Login = () => {
 	const { data: session, status } = useSession();
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const {
 		register,
 		handleSubmit,
@@ -51,6 +52,8 @@ const Login = () => {
 		if (loading) return;
 
 		reset();
+		setErrorMessage("");
+
 		dispatch(setAuthAction("register"));
 	};
 
@@ -62,18 +65,21 @@ const Login = () => {
 		setLoading(true);
 		const body = JSON.stringify(data);
 
-		const result = await signIn("credentials", {
-			email: data.email,
-			password: data.password,
-			redirect: false,
-		});
+		try {
+			const response = await signIn("credentials", {
+				email: data.email,
+				password: data.password,
+				redirect: false,
+			});
 
-		if (!result?.ok) {
-			setLoading(false);
-			console.log("Incorrect credentials");
+			if (!response?.ok) {
+				setLoading(false);
+				setErrorMessage("Invalid credentials");
+			}
+		} catch (error) {
+			console.log(error);
+			setErrorMessage("Something went wrong. Please try again.");
 		}
-
-		console.log({ result });
 	};
 
 	return (
@@ -88,9 +94,13 @@ const Login = () => {
 			</div>
 
 			<form className="login__form" onSubmit={handleSubmit(loginUser)}>
+				{errorMessage !== "" && (
+					<div className="error__message">{errorMessage}</div>
+				)}
+
 				<div className="input__group">
 					<input
-						type="text"
+						type="email"
 						className="input__field"
 						{...register("email")}
 						placeholder="Email"

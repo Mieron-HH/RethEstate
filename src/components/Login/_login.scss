@@ -38,6 +38,13 @@
 		margin-top: 50px;
 		@include display_flex(column);
 
+		.error__message {
+			width: fit-content;
+			margin-bottom: 15px;
+			color: rgb(254, 30, 30);
+			font-size: 12px;
+		}
+
 		.input__group {
 			width: 80%;
 			height: fit-content;
