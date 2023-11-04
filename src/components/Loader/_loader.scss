@@ -1,0 +1,59 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.loader__copmonent {
+	width: 100vw;
+	height: 100vh;
+	@include display_flex();
+	background-color: var(--secondary__background__color);
+
+	.logo {
+		width: 100px;
+		height: 100px;
+		padding: 10px;
+		border-radius: 50px;
+		box-shadow: -10px -10px 10px 1px var(--main__background__color);
+		position: relative;
+		animation: shadowAnimation 1.5s infinite;
+
+		img {
+			width: 90%;
+			height: 70%;
+		}
+
+		.light {
+			display: block;
+		}
+
+		.dark {
+			display: none;
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.loader__copmonent {
+		.logo {
+			.light {
+				display: none;
+			}
+
+			.dark {
+				display: block;
+			}
+		}
+	}
+}
+
+@keyframes shadowAnimation {
+	0% {
+		box-shadow: -10px -10px 10px 1px var(--main__background__color);
+	}
+	50% {
+		box-shadow: 10px 10px 10px 1px var(--main__background__color);
+	}
+	100% {
+		box-shadow: -10px -10px 10px 1px var(--main__background__color);
+	}
+}
