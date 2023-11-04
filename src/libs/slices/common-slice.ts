@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
 // INTERFACES
-import { IUser, ICommonInitialState } from "../interfaces";
+import { IUser, ICommonInitialState, IToast } from "../interfaces";
 
 const initialState: ICommonInitialState = {
 	user: null,
@@ -11,6 +11,10 @@ const initialState: ICommonInitialState = {
 	authAction: "login",
 	provider: null,
 	signer: null,
+	toast: {
+		type: "",
+		message: "",
+	},
 };
 
 const commonSlice = createSlice({
@@ -35,6 +39,9 @@ const commonSlice = createSlice({
 		setSigner: (state, action: PayloadAction<ethers.JsonRpcSigner | null>) => {
 			state.signer = action.payload;
 		},
+		setToast: (state, action: PayloadAction<IToast>) => {
+			state.toast = action.payload;
+		},
 	},
 });
 
@@ -44,6 +51,7 @@ export const {
 	setAuthAction,
 	setProvider,
 	setSigner,
+	setToast,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;

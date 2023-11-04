@@ -7,12 +7,18 @@ export interface IUser {
 	email: string;
 }
 
+export interface IToast {
+	type: "" | "success" | "error";
+	message: string;
+}
+
 export interface ICommonInitialState {
 	user: IUser | null;
 	animateNavbar: boolean;
 	authAction: string;
 	provider: ethers.BrowserProvider | null;
 	signer: ethers.JsonRpcSigner | null;
+	toast: IToast;
 }
 
 export interface IPropertyInitialState {

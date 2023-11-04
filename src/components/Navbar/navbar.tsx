@@ -23,6 +23,7 @@ import {
 	setUser,
 	setProvider,
 	setSigner,
+	setToast,
 } from "@/libs/slices/common-slice";
 
 // ANIMATIONS
@@ -57,7 +58,13 @@ const Navbar = () => {
 	};
 
 	const connectWithBlockchain = async () => {
-		if (signer) return;
+		if (signer) {
+			dispatch(
+				setToast({ type: "success", message: "Wallet already connected" })
+			);
+
+			return;
+		}
 
 		try {
 			const provider = new ethers.BrowserProvider(window.ethereum);
@@ -67,6 +74,10 @@ const Navbar = () => {
 
 			const signer = await provider.getSigner();
 			dispatch(setSigner(signer));
+
+			dispatch(
+				setToast({ type: "success", message: "Wallet successfully connected" })
+			);
 		} catch (error) {
 			console.log(error);
 		}
