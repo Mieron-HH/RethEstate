@@ -1,7 +1,44 @@
+"use client";
+
+import { useEffect } from "react";
 import "./_loader.scss";
+import { useAppDispatch } from "@/libs/hooks";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { ethers } from "ethers";
 import Image from "next/image";
 
+// ACTIONS
+import { setProvider, setSigner } from "@/libs/slices/common-slice";
+
 const Loader = () => {
+	const dispatch = useAppDispatch();
+	const route = useRouter();
+	const { data: session, status } = useSession();
+
+	useEffect(() => {
+		if (session && session.user) connectWithBlockchain();
+
+		if (status !== "loading" && (!session || !session.user)) route.replace("/");
+	}, [status]);
+
+	const connectWithBlockchain = async () => {
+		try {
+			const provider = new ethers.BrowserProvider(window.ethereum);
+
+			await provider.send("eth_requestAccounts", []);
+			dispatch(setProvider(provider));
+
+			const signer = await provider.getSigner();
+			dispatch(setSigner(signer));
+
+			setTimeout(() => route.replace("/"), 1500);
+		} catch (error) {
+			console.log(error);
+			route.replace("/");
+		}
+	};
+
 	return (
 		<div className="loader__copmonent">
 			<div className="logo">

@@ -17,6 +17,7 @@
 		"@mui/material": "^5.14.13",
 		"@reduxjs/toolkit": "^1.9.7",
 		"@types/jsonwebtoken": "^9.0.4",
+		"ethers": "^6.8.1",
 		"framer-motion": "^10.16.4",
 		"js-cookie": "^3.0.5",
 		"jsonwebtoken": "^9.0.2",

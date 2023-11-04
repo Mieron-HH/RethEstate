@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+
 export interface IUser {
 	_id: number;
 	firstName: string;
@@ -9,6 +11,8 @@ export interface ICommonInitialState {
 	user: IUser | null;
 	animateNavbar: boolean;
 	authAction: string;
+	provider: ethers.BrowserProvider | null;
+	signer: ethers.JsonRpcSigner | null;
 }
 
 export interface IPropertyInitialState {

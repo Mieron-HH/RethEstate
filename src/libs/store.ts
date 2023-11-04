@@ -9,6 +9,10 @@ export const store: any = configureStore({
 		common: commonSlice,
 		property: propertySlice,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
