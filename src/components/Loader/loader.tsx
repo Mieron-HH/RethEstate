@@ -13,13 +13,14 @@ import { setProvider, setSigner } from "@/libs/slices/common-slice";
 
 const Loader = () => {
 	const dispatch = useAppDispatch();
-	const route = useRouter();
+	const router = useRouter();
 	const { data: session, status } = useSession();
 
 	useEffect(() => {
 		if (session && session.user) connectWithBlockchain();
 
-		if (status !== "loading" && (!session || !session.user)) route.replace("/");
+		if (status !== "loading" && (!session || !session.user))
+			router.replace("/");
 	}, [status]);
 
 	const connectWithBlockchain = async () => {
@@ -32,10 +33,10 @@ const Loader = () => {
 			const signer = await provider.getSigner();
 			dispatch(setSigner(signer));
 
-			setTimeout(() => route.replace("/"), 1500);
+			setTimeout(() => router.replace("/"), 1500);
 		} catch (error) {
 			console.log(error);
-			route.replace("/");
+			router.replace("/");
 		}
 	};
 

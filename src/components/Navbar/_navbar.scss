@@ -72,6 +72,7 @@
 				@include display_flex();
 				background-color: #0d51b7;
 				border-radius: 100%;
+				position: relative;
 				cursor: pointer;
 
 				&:active {
@@ -81,6 +82,23 @@
 				.icon {
 					color: white;
 					font-size: 18px;
+				}
+
+				.indicator {
+					width: 7px;
+					height: 7px;
+					border-radius: 100%;
+					position: absolute;
+					top: 1px;
+					right: 1px;
+				}
+
+				.indicator.connected {
+					background-color: rgb(37, 247, 37);
+				}
+
+				.indicator.disconnected {
+					background-color: rgb(251, 61, 61);
 				}
 			}
 

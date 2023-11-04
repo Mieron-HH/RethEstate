@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./_navbar.scss";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { ethers } from "ethers";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
@@ -17,7 +18,12 @@ import { IoIosWallet } from "react-icons/io";
 import EastIcon from "@mui/icons-material/East";
 
 // ACTIONS
-import { setAuthAction, setUser } from "@/libs/slices/common-slice";
+import {
+	setAuthAction,
+	setUser,
+	setProvider,
+	setSigner,
+} from "@/libs/slices/common-slice";
 
 // ANIMATIONS
 import { navLogoAnim, navLinksAnim } from "@/libs/animations";
@@ -27,7 +33,9 @@ const Navbar = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const { data: session, status } = useSession();
-	const { user, animateNavbar } = useAppSelector((state) => state.common);
+	const { user, animateNavbar, signer } = useAppSelector(
+		(state) => state.common
+	);
 	const [isAuthPage, setIsAuthPage] = useState(false);
 
 	useEffect(() => {
@@ -48,6 +56,22 @@ const Navbar = () => {
 		router.push("/auth");
 	};
 
+	const connectWithBlockchain = async () => {
+		if (signer) return;
+
+		try {
+			const provider = new ethers.BrowserProvider(window.ethereum);
+
+			await provider.send("eth_requestAccounts", []);
+			dispatch(setProvider(provider));
+
+			const signer = await provider.getSigner();
+			dispatch(setSigner(signer));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div className="navbar__component">
 			<motion.div
@@ -66,6 +90,7 @@ const Navbar = () => {
 					alt=""
 					onClick={navigateToHome}
 				/>
+
 				<Image
 					className="dark"
 					src="/logo-dark-theme.png"
@@ -90,6 +115,7 @@ const Navbar = () => {
 				>
 					Home
 				</Link>
+
 				<Link
 					href="/explore"
 					className={`nav__item ${pathname === "/explore" && "selected"}`}
@@ -109,8 +135,17 @@ const Navbar = () => {
 					!isAuthPage ? (
 						user ? (
 							<div className="nav__auth logged__in">
-								<div className="wallet__connector">
+								<div
+									className="wallet__connector"
+									onClick={connectWithBlockchain}
+								>
 									<IoIosWallet className="icon" />
+
+									<div
+										className={`indicator ${
+											signer ? "connected" : "disconnected"
+										}`}
+									/>
 								</div>
 
 								<Avatar className="avatar" src="/images/user-image.jpg" />
