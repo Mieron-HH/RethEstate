@@ -1,0 +1,150 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.drawer__component {
+	width: 100%;
+	height: 100%;
+	background-color: var(--main__background__color);
+	position: relative;
+
+	.header {
+		width: 100%;
+		height: 60px;
+		@include display_flex(row, space-around);
+		position: relative;
+		background-color: var(--secondary__background__color);
+
+		.close__button {
+			width: fit-content;
+			height: fit-content;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			cursor: pointer;
+
+			&:active {
+				opacity: 0.7;
+			}
+
+			.icon {
+				color: var(--main__text__color);
+				font-size: 18px;
+			}
+		}
+
+		.user {
+			width: 90%;
+			height: 90%;
+			padding-right: 10px;
+			@include display_flex(row, flex-start);
+			overflow: hidden;
+
+			.avatar {
+				width: 45px;
+				height: 45px;
+				margin-right: 10px;
+				border: 1px solid var(--secondary__text__color);
+				z-index: 1;
+
+				&:active {
+					opacity: 0.7;
+				}
+			}
+
+			.user__detail {
+				width: fit-content;
+				height: 60%;
+				@include display_flex(column, space-between, flex-start);
+				color: var(--main__text__color);
+				z-index: 1;
+
+				.name {
+					font-size: 17px;
+					font-weight: bold;
+				}
+
+				.email {
+					font-size: 11px;
+					font-weight: 600;
+				}
+			}
+		}
+	}
+
+	.wallet {
+		width: 100%;
+		margin-top: 5px;
+		padding: 5px 10px;
+		@include display_flex(column, center, flex-start);
+		text-transform: uppercase;
+		color: var(--main__text__color);
+		font-size: 12px;
+		font-weight: 600;
+
+		.label {
+			margin-bottom: 5px;
+		}
+
+		.address {
+			width: 100%;
+			@include display_flex(row, space-between);
+			letter-spacing: 2px;
+			font-size: 11px;
+
+			.icon {
+				font-size: 16px;
+				cursor: pointer;
+
+				&:active {
+					opacity: 0.7;
+				}
+			}
+		}
+
+		.address.not__connected {
+			font-style: italic;
+			font-size: 10px;
+		}
+	}
+
+	.drawer__menu {
+		width: 100%;
+		height: fit-content;
+		margin-top: 25px;
+		@include display_flex(column, flex-start);
+
+		.menu__item {
+			width: 100%;
+			height: fit-content;
+			padding: 5px 10px;
+			@include display_flex(row, flex-start, flex-end);
+			color: var(--main__text__color);
+			font-size: 13px;
+			font-weight: 600;
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--secondary__background__color);
+			}
+
+			&:active {
+				opacity: 0.7;
+			}
+
+			.icon {
+				margin-right: 10px;
+				font-size: 18px;
+			}
+		}
+	}
+
+	.separated__menu {
+		width: 100%;
+		height: fit-content;
+		padding: 10px 0;
+		border-top: 0.3px ridge var(--main__text__color);
+		position: absolute;
+		bottom: 0;
+	}
+}

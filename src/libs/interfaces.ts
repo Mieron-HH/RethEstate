@@ -19,6 +19,7 @@ export interface ICommonInitialState {
 	provider: ethers.BrowserProvider | null;
 	signer: ethers.JsonRpcSigner | null;
 	toast: IToast;
+	drawerDisplayed: boolean;
 }
 
 export interface IPropertyInitialState {

@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 
 // COMPONENTS
 import { Avatar } from "@mui/material";
+import Drawer from "@/components/Drawer/drawer";
 
 // ICONS
 import { IoIosWallet } from "react-icons/io";
@@ -24,17 +25,18 @@ import {
 	setProvider,
 	setSigner,
 	setToast,
+	setDrawerDisplayed,
 } from "@/libs/slices/common-slice";
 
 // ANIMATIONS
-import { navLogoAnim, navLinksAnim } from "@/libs/animations";
+import { navLogoAnim, navLinksAnim, drawerAnim } from "@/libs/animations";
 
 const Navbar = () => {
 	const pathname = usePathname();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const { data: session, status } = useSession();
-	const { user, animateNavbar, signer } = useAppSelector(
+	const { user, animateNavbar, signer, drawerDisplayed } = useAppSelector(
 		(state) => state.common
 	);
 	const [isAuthPage, setIsAuthPage] = useState(false);
@@ -159,7 +161,14 @@ const Navbar = () => {
 									/>
 								</div>
 
-								<Avatar className="avatar" src="/images/user-image.jpg" />
+								<Image
+									className="avatar"
+									src="/images/user-image.jpg"
+									width={33}
+									height={33}
+									alt=""
+									onClick={() => dispatch(setDrawerDisplayed(!drawerDisplayed))}
+								/>
 							</div>
 						) : (
 							<div className="nav__auth logged__out">
@@ -191,6 +200,17 @@ const Navbar = () => {
 					/>
 				)}
 			</motion.div>
+
+			{drawerDisplayed && (
+				<motion.div
+					className="drawer__container"
+					variants={drawerAnim}
+					initial="hidden"
+					animate="show"
+				>
+					<Drawer />
+				</motion.div>
+			)}
 		</div>
 	);
 };

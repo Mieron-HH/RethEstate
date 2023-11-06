@@ -15,6 +15,7 @@ const initialState: ICommonInitialState = {
 		type: "",
 		message: "",
 	},
+	drawerDisplayed: false,
 };
 
 const commonSlice = createSlice({
@@ -42,6 +43,14 @@ const commonSlice = createSlice({
 		setToast: (state, action: PayloadAction<IToast>) => {
 			state.toast = action.payload;
 		},
+		setDrawerDisplayed: (state, action: PayloadAction<boolean>) => {
+			state.drawerDisplayed = action.payload;
+		},
+		logout: (state) => {
+			state.user = null;
+			state.signer = null;
+			state.drawerDisplayed = false;
+		},
 	},
 });
 
@@ -52,6 +61,8 @@ export const {
 	setProvider,
 	setSigner,
 	setToast,
+	setDrawerDisplayed,
+	logout,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
