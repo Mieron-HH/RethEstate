@@ -1,6 +1,7 @@
 "use client";
 
 import "./_drawer.scss";
+import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { signOut } from "next-auth/react";
 
@@ -21,11 +22,12 @@ import {
 	AiOutlineSetting,
 	AiOutlineUser,
 } from "react-icons/ai";
-import { TbChecks } from "react-icons/tb";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Drawer = () => {
 	const dispatch = useAppDispatch();
+	const router = useRouter();
+	const pathname = usePathname();
 	const { user, signer } = useAppSelector((state) => state.common);
 
 	const abstractAddress = (address: string) => {
@@ -59,11 +61,13 @@ const Drawer = () => {
 		dispatch(logout());
 		dispatch(setDrawerDisplayed(false));
 		signOut({ redirect: false })
-			.then(() =>
+			.then(() => {
+				if (pathname.split("/").pop() === "dashboard") router.replace("/");
+
 				dispatch(
 					setToast({ type: "success", message: "Successfully logged out" })
-				)
-			)
+				);
+			})
 			.catch(() =>
 				dispatch(setToast({ type: "error", message: "Error logging out" }))
 			);

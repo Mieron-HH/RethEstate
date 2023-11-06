@@ -1,0 +1,22 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.dashboard {
+	width: 100vw;
+	height: 100vh;
+	@include display_flex(column, flex-start);
+	position: relative;
+
+	.page__loading {
+		width: 100%;
+		height: 100%;
+		@include display_flex();
+
+		.session__loading {
+			width: 65px;
+			height: 65px;
+			position: relative;
+		}
+	}
+}

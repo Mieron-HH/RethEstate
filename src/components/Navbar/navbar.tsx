@@ -26,6 +26,7 @@ import {
 	setSigner,
 	setToast,
 	setDrawerDisplayed,
+	setAnimateNavbar,
 } from "@/libs/slices/common-slice";
 
 // ANIMATIONS
@@ -42,6 +43,10 @@ const Navbar = () => {
 	const [isAuthPage, setIsAuthPage] = useState(false);
 
 	useEffect(() => {
+		setTimeout(() => {
+			if (animateNavbar) dispatch(setAnimateNavbar(false));
+		}, 1000);
+
 		setIsAuthPage(() => (pathname === "/auth" ? true : false));
 	}, []);
 
@@ -137,11 +142,12 @@ const Navbar = () => {
 				</Link>
 
 				{!isAuthPage && user && (
-					<div
+					<Link
+						href="/dashboard"
 						className={`nav__item ${pathname === "/dashboard" && "selected"}`}
 					>
 						Dashboard
-					</div>
+					</Link>
 				)}
 
 				{status !== "loading" ? (

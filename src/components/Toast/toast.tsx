@@ -16,30 +16,33 @@ interface IToastType {
 	type: "success" | "error";
 }
 
-const Toast = ({ type }: { type: IToastType }) => {
+const Toast = () => {
 	const dispatch = useAppDispatch();
 	const { toast } = useAppSelector((state) => state.common);
 
 	useEffect(() => {
-		setTimeout(() => dispatch(setToast({ type: "", message: "" })), 8000);
-	}, []);
+		if (toast.type !== "")
+			setTimeout(() => dispatch(setToast({ type: "", message: "" })), 8000);
+	}, [toast]);
 
 	return (
-		<motion.div
-			className={`toast__component ${type}`}
-			variants={toastAnim}
-			initial="hidden"
-			animate="show"
-		>
-			<div className="message__container">{toast.message}</div>
-
-			<div
-				className="close__button"
-				onClick={() => dispatch(setToast({ type: "", message: "" }))}
+		toast.type !== "" && (
+			<motion.div
+				className={`toast__component ${toast.type}`}
+				variants={toastAnim}
+				initial="hidden"
+				animate="show"
 			>
-				<CloseIcon className="icon" />
-			</div>
-		</motion.div>
+				<div className="message__container">{toast.message}</div>
+
+				<div
+					className="close__button"
+					onClick={() => dispatch(setToast({ type: "", message: "" }))}
+				>
+					<CloseIcon className="icon" />
+				</div>
+			</motion.div>
+		)
 	);
 };
 

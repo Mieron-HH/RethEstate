@@ -13,6 +13,7 @@ import Navbar from "@/components/Navbar/navbar";
 import Slider from "@/components/Slider/slider";
 import Register from "@/components/Register/register";
 import Login from "@/components/Login/login";
+import Toast from "@/components/Toast/toast";
 
 // ANIMATIONS
 import { authFormAnim } from "@/libs/animations";
@@ -57,11 +58,13 @@ const Auth = () => {
 						</div>
 					</motion.div>
 				) : (
-					<div className="form__loading">
-						<Image src="/loading-gif.gif" fill alt="" />
+					<div className="session__loading">
+						<Image src="/loading-gif.gif" quality={100} fill alt="" />
 					</div>
 				)}
 			</div>
+
+			<Toast />
 		</div>
 	);
 };

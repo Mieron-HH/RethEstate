@@ -1,3 +1,5 @@
+"use client";
+
 import "./_page.scss";
 
 // COMPONENTS
@@ -5,6 +7,7 @@ import Navbar from "@/components/Navbar/navbar";
 import SearchBar from "@/components/Search-Bar/search_bar";
 import PropertyCard from "@/components/Property-Card/property_card";
 import Map from "@/components/Map/map";
+import Toast from "@/components/Toast/toast";
 
 const Explore = () => {
 	return (
@@ -26,6 +29,8 @@ const Explore = () => {
 					<Map />
 				</div>
 			</div>
+
+			<Toast />
 		</div>
 	);
 };
