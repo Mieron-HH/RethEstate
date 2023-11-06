@@ -8,11 +8,11 @@ import { useAppDispatch } from "@/libs/hooks";
 import Image from "next/image";
 
 // COMPONENTS
-import Navbar from "@/components/Navbar/navbar";
+import DashboardDrawer from "@/components/Dashboard-Drawer/dashboard_drawer";
 import Toast from "@/components/Toast/toast";
 
 // ACTIONS
-import { setToast } from "@/libs/slices/common-slice";
+import { setToast, setUser } from "@/libs/slices/common-slice";
 
 const Dashboard = () => {
 	const dispatch = useAppDispatch();
@@ -21,19 +21,24 @@ const Dashboard = () => {
 	const [authenticated, setAuthenticated] = useState(false);
 
 	useEffect(() => {
-		if (!session || !session.user) {
+		if (status !== "loading" && (!session || !session.user)) {
 			dispatch(setToast({ type: "error", message: "User not signed in" }));
 			route.replace("/");
 		}
 
-		if (session && session.user) setAuthenticated(true);
+		if (session && session.user) {
+			dispatch(setUser(session.user));
+			setAuthenticated(true);
+		}
 	}, [status]);
 
 	return (
 		<div className="dashboard">
 			{authenticated ? (
 				<>
-					<Navbar />
+					<div className="drawer__container">
+						<DashboardDrawer />
+					</div>
 
 					<Toast />
 				</>
