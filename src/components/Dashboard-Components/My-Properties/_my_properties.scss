@@ -1,0 +1,179 @@
+@import "@/styles/global";
+@import "@/styles/mixin";
+@import "@/styles/variables";
+
+.myProperties__component {
+	width: 100%;
+	height: 100%;
+	@include display_flex(column, flex-start);
+	position: relative;
+	overflow: scroll;
+
+	.header {
+		width: 100%;
+		height: fit-content;
+		padding: 10px;
+		@include display_flex(row, flex-end);
+		background-color: var(--main__background__color);
+		position: sticky;
+		top: 0;
+		z-index: 10;
+
+		.sort__button {
+			width: fit-content;
+			height: fit-content;
+			padding: 8px 25px;
+			@include display_flex();
+			background-color: var(--secondary__background__color);
+			border-radius: 3px;
+			color: var(--secondary__text__color);
+			font-size: 15px;
+			cursor: pointer;
+
+			&:active {
+				opacity: 0.7;
+			}
+
+			.icon {
+				margin-left: 5px;
+				font-size: 22px;
+			}
+		}
+	}
+
+	.myProperties__list {
+		width: 95%;
+		height: fit-content;
+		padding: 20px 10px;
+		@include display_flex(row, flex-start);
+		gap: 30px;
+		flex-wrap: wrap;
+		position: relative;
+
+		.property__card {
+			width: 300px;
+			height: 350px;
+			padding: 6px;
+			@include display_flex(column, space-between);
+			box-shadow: 1px 1px 5px -4px var(--main__text__color);
+			border: 1px ridge #555;
+			border-radius: 4px;
+			position: relative;
+
+			.image {
+				width: 100%;
+				height: 70%;
+				border-radius: 1px;
+				position: relative;
+				overflow: hidden;
+
+				&:hover {
+					img {
+						scale: 1.1;
+					}
+				}
+
+				img {
+					transition: scale 0.3s ease-in-out;
+				}
+			}
+
+			.detail {
+				width: 100%;
+				height: 29%;
+				@include display_flex(column, space-between, flex-start);
+
+				.description {
+					width: fit-content;
+					height: 40px;
+					color: var(--main__text__color);
+					line-height: 20px;
+					font-size: 15px;
+					font-weight: 600;
+					overflow: hidden;
+				}
+
+				.more__info {
+					width: 100%;
+					height: fit-content;
+					@include display_flex(row, space-between);
+					color: var(--main__text__color);
+
+					.price {
+						font-size: 18px;
+						font-weight: bold;
+					}
+
+					.date {
+						font-size: 12px;
+					}
+				}
+			}
+
+			.view__button {
+				width: 35px;
+				height: 35px;
+				@include display_flex();
+				background-color: var(--main__background__color);
+				border-radius: 100%;
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				cursor: pointer;
+
+				&:hover {
+					.icon {
+						margin-right: 3px;
+					}
+				}
+
+				&:active {
+					opacity: 0.7;
+				}
+
+				.icon {
+					color: var(--main__text__color);
+					font-size: 24px;
+				}
+			}
+
+			.count__item {
+				width: fit-content;
+				height: fit-content;
+				padding: 3px 10px;
+				@include display_flex(row, flex-start);
+				background-color: var(--main__background__color);
+				border-radius: 3px;
+				color: var(--main__text__color);
+				font-size: 12px;
+				position: absolute;
+				left: 0;
+
+				.icon {
+					margin-right: 10px;
+					font-size: 17px;
+				}
+			}
+
+			.count__item.views {
+				top: 10px;
+			}
+
+			.count__item.likes {
+				top: 37px;
+			}
+		}
+	}
+
+	.no__data {
+		width: 100%;
+		height: 100%;
+		@include display_flex();
+		display: none;
+
+		img {
+			width: 250px;
+			height: 190px;
+		}
+	}
+}

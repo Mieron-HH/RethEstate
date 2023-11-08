@@ -9,11 +9,16 @@
 	@include display_flex(row, space-between);
 	position: relative;
 
-	.drawer__container {
+	.dashboard__drawer {
 		width: 240px;
 		height: 95%;
 		border-radius: 10px;
 		overflow: hidden;
+	}
+
+	.dashboard__content {
+		width: calc(100% - 250px);
+		height: 94%;
 	}
 
 	.page__loading {

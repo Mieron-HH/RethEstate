@@ -3,7 +3,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
 // INTERFACES
-import { IUser, ICommonInitialState, IToast } from "../interfaces";
+import {
+	IUser,
+	ICommonInitialState,
+	IToast,
+	TDashboardComponent,
+} from "../interfaces";
 
 const initialState: ICommonInitialState = {
 	user: null,
@@ -16,6 +21,7 @@ const initialState: ICommonInitialState = {
 		message: "",
 	},
 	drawerDisplayed: false,
+	dashboardComponent: "myProperty",
 };
 
 const commonSlice = createSlice({
@@ -46,6 +52,12 @@ const commonSlice = createSlice({
 		setDrawerDisplayed: (state, action: PayloadAction<boolean>) => {
 			state.drawerDisplayed = action.payload;
 		},
+		setDashboardComponent: (
+			state,
+			action: PayloadAction<TDashboardComponent>
+		) => {
+			state.dashboardComponent = action.payload;
+		},
 		logout: (state) => {
 			state.user = null;
 			state.signer = null;
@@ -62,6 +74,7 @@ export const {
 	setSigner,
 	setToast,
 	setDrawerDisplayed,
+	setDashboardComponent,
 	logout,
 } = commonSlice.actions;
 

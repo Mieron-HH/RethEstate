@@ -12,6 +12,13 @@ export interface IToast {
 	message: string;
 }
 
+export type TDashboardComponent =
+	| "myProperty"
+	| "listProperty"
+	| "liked"
+	| "profile"
+	| "settings";
+
 export interface ICommonInitialState {
 	user: IUser | null;
 	animateNavbar: boolean;
@@ -20,6 +27,7 @@ export interface ICommonInitialState {
 	signer: ethers.JsonRpcSigner | null;
 	toast: IToast;
 	drawerDisplayed: boolean;
+	dashboardComponent: TDashboardComponent;
 }
 
 export interface IPropertyInitialState {

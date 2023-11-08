@@ -67,6 +67,11 @@
 				font-size: 20px;
 			}
 		}
+
+		.menu__item.selected {
+			background-color: va(--main__background__color);
+			color: rgb(9, 188, 188);
+		}
 	}
 
 	.user {

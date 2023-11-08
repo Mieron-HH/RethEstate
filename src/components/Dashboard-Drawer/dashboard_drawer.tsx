@@ -9,7 +9,11 @@ import Link from "next/link";
 import { Avatar } from "@mui/material";
 
 // ACTIONS
-import { setToast, logout } from "@/libs/slices/common-slice";
+import {
+	setToast,
+	logout,
+	setDashboardComponent,
+} from "@/libs/slices/common-slice";
 
 // ICONS
 import { BsFillHouseAddFill, BsFillHouseFill } from "react-icons/bs";
@@ -17,10 +21,19 @@ import { FaUser } from "react-icons/fa6";
 import { IoMdHeart, IoMdSettings } from "react-icons/io";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 
+// TYPES
+import { TDashboardComponent } from "@/libs/interfaces";
+
 const DashboardDrawer = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const { user } = useAppSelector((state) => state.common);
+	const { user, dashboardComponent } = useAppSelector((state) => state.common);
+
+	const selectDashboardComponent = (
+		dashboardComponent: TDashboardComponent
+	) => {
+		dispatch(setDashboardComponent(dashboardComponent));
+	};
 
 	const logoutUser = () => {
 		signOut({ redirect: false })
@@ -36,6 +49,7 @@ const DashboardDrawer = () => {
 				dispatch(setToast({ type: "error", message: "Error logging out" }))
 			);
 	};
+
 	return (
 		<div className="dashboardDrawer__component">
 			<Link className="logo" href="/">
@@ -58,29 +72,57 @@ const DashboardDrawer = () => {
 			</Link>
 
 			<div className="drawer__menu">
-				<div className="menu__item">
+				<div
+					className={`menu__item ${
+						dashboardComponent === "myProperty" && "selected"
+					}`}
+					onClick={() => selectDashboardComponent("myProperty")}
+				>
 					<BsFillHouseFill className="icon" /> My Properties
 				</div>
 
-				<div className="menu__item">
+				<div
+					className={`menu__item ${
+						dashboardComponent === "listProperty" && "selected"
+					}`}
+					onClick={() => selectDashboardComponent("listProperty")}
+				>
 					<BsFillHouseAddFill className="icon" /> List Property
 				</div>
 
-				<div className="menu__item">
+				<div
+					className={`menu__item ${
+						dashboardComponent === "liked" && "selected"
+					}`}
+					onClick={() => selectDashboardComponent("liked")}
+				>
 					<IoMdHeart className="icon" /> Liked
 				</div>
 			</div>
 
 			<div className="drawer__menu">
-				<div className="menu__item">
+				<div
+					className={`menu__item ${
+						dashboardComponent === "profile" && "selected"
+					}`}
+					onClick={() => selectDashboardComponent("profile")}
+				>
 					<FaUser className="icon" /> Profile
 				</div>
 
-				<div className="menu__item">
+				<div
+					className={`menu__item ${
+						dashboardComponent === "settings" && "selected"
+					}`}
+					onClick={() => selectDashboardComponent("settings")}
+				>
 					<IoMdSettings className="icon" /> Settings
 				</div>
 
-				<div className="menu__item" onClick={logoutUser}>
+				<div
+					className={`menu__item ${dashboardComponent === "" && "selected"}`}
+					onClick={logoutUser}
+				>
 					<RiLogoutCircleRFill className="icon" /> Logout
 				</div>
 			</div>
