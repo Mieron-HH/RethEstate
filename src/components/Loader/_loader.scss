@@ -7,6 +7,9 @@
 	height: 100vh;
 	@include display_flex();
 	background-color: var(--secondary__background__color);
+	position: absolute;
+	top: 0;
+	left: 0;
 
 	.logo {
 		width: 100px;
@@ -30,6 +33,10 @@
 			display: none;
 		}
 	}
+}
+
+.loader__copmonent.hidden {
+	display: none;
 }
 
 @media (prefers-color-scheme: dark) {

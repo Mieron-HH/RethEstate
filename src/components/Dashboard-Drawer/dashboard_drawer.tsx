@@ -1,7 +1,6 @@
 import "./_dashboard_drawer.scss";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,6 +23,9 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 // TYPES
 import { TDashboardComponent } from "@/libs/interfaces";
 
+// CONSTANTS
+import { BASE_URL } from "@/libs/constants";
+
 const DashboardDrawer = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -35,19 +37,19 @@ const DashboardDrawer = () => {
 		dispatch(setDashboardComponent(dashboardComponent));
 	};
 
-	const logoutUser = () => {
-		signOut({ redirect: false })
-			.then(() => {
-				router.replace("/");
-				dispatch(logout());
+	const logoutUser = async () => {
+		const response = await fetch(BASE_URL + "/api/auth/signout");
+		if (response.ok) {
+			dispatch(logout());
 
-				dispatch(
-					setToast({ type: "success", message: "Successfully logged out" })
-				);
-			})
-			.catch(() =>
-				dispatch(setToast({ type: "error", message: "Error logging out" }))
+			router.replace("/");
+
+			dispatch(
+				setToast({ type: "success", message: "Successfully logged out" })
 			);
+		} else {
+			dispatch(setToast({ type: "error", message: "Error logging out" }));
+		}
 	};
 
 	return (

@@ -16,7 +16,8 @@
 		"@mui/icons-material": "^5.14.13",
 		"@mui/material": "^5.14.13",
 		"@reduxjs/toolkit": "^1.9.7",
-		"@types/jsonwebtoken": "^9.0.4",
+		"axios": "^1.6.2",
+		"cookie": "^0.6.0",
 		"ethers": "^6.8.1",
 		"framer-motion": "^10.16.4",
 		"js-cookie": "^3.0.5",
@@ -24,7 +25,6 @@
 		"mongoose": "^7.6.3",
 		"mongoose-update-if-current": "^1.4.0",
 		"next": "^14.0.1",
-		"next-auth": "^4.24.4",
 		"react": "^18",
 		"react-dom": "^18",
 		"react-hook-form": "^7.47.0",
@@ -34,7 +34,9 @@
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
+		"@types/cookie": "^0.5.4",
 		"@types/google.maps": "^3.54.4",
+		"@types/jsonwebtoken": "^9.0.5",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",

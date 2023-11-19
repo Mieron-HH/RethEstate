@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./_login.scss";
 import { useAppDispatch } from "@/libs/hooks";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn, useSession } from "next-auth/react";
 
 // ACTIONS
 import { setUser, setAuthAction } from "@/libs/slices/common-slice";
@@ -21,15 +20,18 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // SCHEMAS
 import signInSchema from "../../libs/schemas/signin-schema";
 
+// CONSTANTS
+import { BASE_URL } from "@/libs/constants";
+
 type Inputs = z.infer<typeof signInSchema>;
 
 const Login = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const { data: session, status } = useSession();
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+
 	const {
 		register,
 		handleSubmit,
@@ -38,15 +40,6 @@ const Login = () => {
 	} = useForm<Inputs>({
 		resolver: zodResolver(signInSchema),
 	});
-
-	useEffect(() => {
-		if (session && session.user) {
-			reset();
-
-			dispatch(setUser(session!.user));
-			router.replace("/");
-		}
-	}, [status]);
 
 	const switchToRegister = () => {
 		if (loading) return;
@@ -66,15 +59,19 @@ const Login = () => {
 		const body = JSON.stringify(data);
 
 		try {
-			const response = await signIn("credentials", {
-				email: data.email,
-				password: data.password,
-				redirect: false,
+			const response = await fetch(BASE_URL + "/api/auth/signin", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body,
 			});
 
 			if (!response?.ok) {
 				setLoading(false);
 				setErrorMessage("Invalid credentials");
+			} else {
+				const data = await response.json();
+				dispatch(setUser(data.user));
+				router.replace("/");
 			}
 		} catch (error) {
 			console.log(error);

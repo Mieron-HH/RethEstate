@@ -44,3 +44,13 @@ export interface IPropertyInitialState {
 	minSize: number;
 	maxSize: number;
 }
+
+export interface PropertyImage {
+	name: string;
+	data: string | ArrayBuffer | null;
+}
+
+export interface ApiResponse {
+	data: any;
+	error: string;
+}

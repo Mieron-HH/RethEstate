@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import "./_page.scss";
-import { useAppSelector } from "@/libs/hooks";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -15,22 +14,38 @@ import Register from "@/components/Register/register";
 import Login from "@/components/Login/login";
 import Toast from "@/components/Toast/toast";
 
+// ACTIONS
+import { setUser } from "@/libs/slices/common-slice";
+
 // ANIMATIONS
 import { authFormAnim } from "@/libs/animations";
 
+// SERVICES
+import { getCurrentUser } from "@/libs/services/api-calls";
+
 const Auth = () => {
+	const dispatch = useAppDispatch();
 	const route = useRouter();
-	const { data: session, status } = useSession();
-	const { authAction } = useAppSelector((state) => state.common);
+	const { authAction, user } = useAppSelector((state) => state.common);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		if (session && session.user) route.replace("/");
-		else
-			setTimeout(() => {
-				setLoading(false);
-			}, 1000);
-	}, [status]);
+		(async () => {
+			if (!user) {
+				const user = await getCurrentUser();
+				if (user) {
+					dispatch(setUser(user));
+					route.replace("/");
+				} else {
+					setTimeout(() => {
+						setLoading(false);
+					}, 1000);
+				}
+			} else {
+				route.replace("/");
+			}
+		})();
+	}, []);
 
 	return (
 		<div className="auth">

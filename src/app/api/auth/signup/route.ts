@@ -1,10 +1,17 @@
 import { connect } from "@/libs/mongodb";
+import { serialize } from "cookie";
 
 // MODELS
 import { User } from "@/models/user";
 
 // SCHEMAS
 import signupSchema from "@/libs/schemas/signup-shema";
+
+// SERVICES
+import { signJWT } from "@/libs/services/jwt";
+
+// CONSTANTS
+import { COOKIE_NAME, COOKIE_MAX_AGE } from "@/libs/constants";
 
 interface RequestBody {
 	firstName: string;
@@ -42,7 +49,30 @@ export async function POST(req: Request) {
 
 		await newUser.save();
 
-		return Response.json({ success: true }, { status: 201 });
+		const userData = {
+			_id: newUser._id,
+			firstName: newUser.firstName,
+			lastName: newUser.lastName,
+			email: newUser.email,
+		};
+
+		const accessToken = signJWT(userData);
+
+		const serialized = serialize(COOKIE_NAME, accessToken, {
+			secure: process.env.NODE_ENV === "production",
+			maxAge: COOKIE_MAX_AGE,
+			httpOnly: true,
+		});
+
+		return Response.json(
+			{ success: true },
+			{
+				status: 201,
+				headers: {
+					"Set-Cookie": serialized,
+				},
+			}
+		);
 	} catch (error) {
 		return Response.json(
 			{ error: "Something went wrong. Please try again." },

@@ -3,7 +3,6 @@
 import "./_drawer.scss";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
-import { signOut } from "next-auth/react";
 
 // COMPONENTS
 import { Avatar } from "@mui/material";
@@ -23,6 +22,9 @@ import {
 	AiOutlineUser,
 } from "react-icons/ai";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
+// CONSTANTS
+import { BASE_URL } from "@/libs/constants";
 
 const Drawer = () => {
 	const dispatch = useAppDispatch();
@@ -57,20 +59,17 @@ const Drawer = () => {
 		}
 	};
 
-	const logoutUser = () => {
-		dispatch(logout());
-		dispatch(setDrawerDisplayed(false));
-		signOut({ redirect: false })
-			.then(() => {
-				if (pathname.split("/").pop() === "dashboard") router.replace("/");
-
-				dispatch(
-					setToast({ type: "success", message: "Successfully logged out" })
-				);
-			})
-			.catch(() =>
-				dispatch(setToast({ type: "error", message: "Error logging out" }))
+	const logoutUser = async () => {
+		const response = await fetch(BASE_URL + "/api/auth/signout");
+		if (response.ok) {
+			dispatch(logout());
+			dispatch(setDrawerDisplayed(false));
+			dispatch(
+				setToast({ type: "success", message: "Successfully logged out" })
 			);
+		} else {
+			dispatch(setToast({ type: "error", message: "Error logging out" }));
+		}
 	};
 
 	return (

@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import "./_navbar.scss";
 import { usePathname, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { ethers } from "ethers";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { motion } from "framer-motion";
 
 // COMPONENTS
-import { Avatar } from "@mui/material";
 import Drawer from "@/components/Drawer/drawer";
 
 // ICONS
@@ -32,11 +30,14 @@ import {
 // ANIMATIONS
 import { navLogoAnim, navLinksAnim, drawerAnim } from "@/libs/animations";
 
+// SERVICES
+import { getCurrentUser } from "@/libs/services/api-calls";
+
 const Navbar = () => {
 	const pathname = usePathname();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const { data: session, status } = useSession();
+	const [loadingSession, setLoadingSession] = useState(false);
 	const { user, animateNavbar, signer, drawerDisplayed } = useAppSelector(
 		(state) => state.common
 	);
@@ -48,11 +49,16 @@ const Navbar = () => {
 		}, 1000);
 
 		setIsAuthPage(() => (pathname === "/auth" ? true : false));
-	}, []);
 
-	useEffect(() => {
-		if (session && session.user) dispatch(setUser(session.user));
-	}, [status]);
+		(async () => {
+			if (!user) {
+				setLoadingSession(true);
+				const user = await getCurrentUser();
+				dispatch(setUser(user));
+				setLoadingSession(false);
+			}
+		})();
+	}, []);
 
 	const navigateToHome = () => {
 		if (pathname !== "/") router.push("/");
@@ -150,7 +156,7 @@ const Navbar = () => {
 					</Link>
 				)}
 
-				{status !== "loading" ? (
+				{!loadingSession ? (
 					!isAuthPage ? (
 						user ? (
 							<div className="nav__auth logged__in">

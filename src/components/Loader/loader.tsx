@@ -1,27 +1,40 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./_loader.scss";
-import { useAppDispatch } from "@/libs/hooks";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { ethers } from "ethers";
 import Image from "next/image";
 
 // ACTIONS
-import { setProvider, setSigner } from "@/libs/slices/common-slice";
+import { setProvider, setSigner, setUser } from "@/libs/slices/common-slice";
+
+// SERVICES
+import { getCurrentUser } from "@/libs/services/api-calls";
 
 const Loader = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const { data: session, status } = useSession();
+	const { user } = useAppSelector((state) => state.common);
+	const [loadingSession, setLoadingSession] = useState(true);
 
 	useEffect(() => {
-		if (session && session.user) connectWithBlockchain();
+		(async () => {
+			if (!user) {
+				const user = await getCurrentUser();
 
-		if (status !== "loading" && (!session || !session.user))
-			router.replace("/");
-	}, [status]);
+				if (user) {
+					dispatch(setUser(user));
+					connectWithBlockchain();
+				}
+				setLoadingSession(false);
+			} else {
+				setLoadingSession(false);
+				connectWithBlockchain();
+			}
+		})();
+	}, []);
 
 	const connectWithBlockchain = async () => {
 		try {
@@ -41,7 +54,7 @@ const Loader = () => {
 	};
 
 	return (
-		<div className="loader__copmonent">
+		<div className={`loader__copmonent ${!loadingSession && "hidden"}`}>
 			<div className="logo">
 				<Image
 					className="light"
