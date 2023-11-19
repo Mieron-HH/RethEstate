@@ -25,6 +25,7 @@ import {
 	setToast,
 	setDrawerDisplayed,
 	setAnimateNavbar,
+	setSessionAvailable,
 } from "@/libs/slices/common-slice";
 
 // ANIMATIONS
@@ -38,9 +39,8 @@ const Navbar = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const [loadingSession, setLoadingSession] = useState(false);
-	const { user, animateNavbar, signer, drawerDisplayed } = useAppSelector(
-		(state) => state.common
-	);
+	const { user, animateNavbar, signer, drawerDisplayed, sessionAvailable } =
+		useAppSelector((state) => state.common);
 	const [isAuthPage, setIsAuthPage] = useState(false);
 
 	useEffect(() => {
@@ -51,9 +51,11 @@ const Navbar = () => {
 		setIsAuthPage(() => (pathname === "/auth" ? true : false));
 
 		(async () => {
-			if (!user) {
+			if (!user && sessionAvailable) {
 				setLoadingSession(true);
 				const user = await getCurrentUser();
+
+				if (!user) dispatch(setSessionAvailable(false));
 				dispatch(setUser(user));
 				setLoadingSession(false);
 			}

@@ -22,6 +22,8 @@ const initialState: ICommonInitialState = {
 	},
 	drawerDisplayed: false,
 	dashboardComponent: "myProperty",
+	siteLoaded: false,
+	sessionAvailable: true,
 };
 
 const commonSlice = createSlice({
@@ -58,6 +60,12 @@ const commonSlice = createSlice({
 		) => {
 			state.dashboardComponent = action.payload;
 		},
+		setSiteLoaded: (state, action: PayloadAction<boolean>) => {
+			state.siteLoaded = action.payload;
+		},
+		setSessionAvailable: (state, action: PayloadAction<boolean>) => {
+			state.sessionAvailable = action.payload;
+		},
 		logout: (state) => {
 			state.user = null;
 			state.signer = null;
@@ -75,6 +83,8 @@ export const {
 	setToast,
 	setDrawerDisplayed,
 	setDashboardComponent,
+	setSiteLoaded,
+	setSessionAvailable,
 	logout,
 } = commonSlice.actions;
 

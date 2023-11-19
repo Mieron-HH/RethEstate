@@ -17,7 +17,6 @@ const Loader = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const { user } = useAppSelector((state) => state.common);
-	const [loadingSession, setLoadingSession] = useState(true);
 
 	useEffect(() => {
 		(async () => {
@@ -28,9 +27,7 @@ const Loader = () => {
 					dispatch(setUser(user));
 					connectWithBlockchain();
 				}
-				setLoadingSession(false);
 			} else {
-				setLoadingSession(false);
 				connectWithBlockchain();
 			}
 		})();
@@ -54,7 +51,7 @@ const Loader = () => {
 	};
 
 	return (
-		<div className={`loader__copmonent ${!loadingSession && "hidden"}`}>
+		<div className="loader__copmonent">
 			<div className="logo">
 				<Image
 					className="light"

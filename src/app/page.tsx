@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./_page.scss";
-import { useAppSelector } from "@/libs/hooks";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 
 // COMPONENTS
 import Loader from "@/components/Loader/loader";
@@ -10,18 +10,22 @@ import Navbar from "../components/Navbar/navbar";
 import Hero from "@/components/Hero/hero";
 import Toast from "@/components/Toast/toast";
 
+// ACTIONS
+import { setSiteLoaded } from "@/libs/slices/common-slice";
+
 const Home = () => {
-	const { user } = useAppSelector((state) => state.common);
-	const [displayLoader, setDisplayLoader] = useState(true);
+	const dispatch = useAppDispatch();
+	const { siteLoaded } = useAppSelector((state) => state.common);
 
 	useEffect(() => {
-		if (user) setDisplayLoader(false);
-		else setTimeout(() => setDisplayLoader(false), 2000);
+		if (!siteLoaded) {
+			setTimeout(() => dispatch(setSiteLoaded(true)), 2000);
+		}
 	}, []);
 
 	return (
 		<main className="home">
-			{displayLoader ? (
+			{!siteLoaded ? (
 				<Loader />
 			) : (
 				<>

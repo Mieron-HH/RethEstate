@@ -28,6 +28,8 @@ export interface ICommonInitialState {
 	toast: IToast;
 	drawerDisplayed: boolean;
 	dashboardComponent: TDashboardComponent;
+	siteLoaded: boolean;
+	sessionAvailable: boolean;
 }
 
 export interface IPropertyInitialState {
