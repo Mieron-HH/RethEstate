@@ -47,6 +47,7 @@ export async function POST(req: Request) {
 				secure: process.env.NODE_ENV === "production",
 				maxAge: COOKIE_MAX_AGE,
 				httpOnly: true,
+				path: "/api",
 			});
 
 			return Response.json(
