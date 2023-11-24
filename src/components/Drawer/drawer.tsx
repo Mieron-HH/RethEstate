@@ -3,6 +3,7 @@
 import "./_drawer.scss";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
+import { useAddress } from "@thirdweb-dev/react";
 
 // COMPONENTS
 import { Avatar } from "@mui/material";
@@ -30,16 +31,17 @@ const Drawer = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const pathname = usePathname();
-	const { user, signer } = useAppSelector((state) => state.common);
+	const { user } = useAppSelector((state) => state.common);
+	const address = useAddress();
 
 	const abstractAddress = (address: string) => {
 		return address.slice(0, 6) + ".........." + address.slice(38);
 	};
 
 	const copyToClipboard = () => {
-		if (navigator.clipboard) {
+		if (navigator.clipboard && address) {
 			navigator.clipboard
-				.writeText(signer.address)
+				.writeText(address)
 				.then(() =>
 					dispatch(
 						setToast({
@@ -96,10 +98,10 @@ const Drawer = () => {
 
 				<div className="wallet">
 					<div className="label">Wallet :</div>
-					<div className={`address ${!signer && "not__connected"}`}>
-						{signer ? (
+					<div className={`address ${!address && "not__connected"}`}>
+						{address ? (
 							<>
-								{abstractAddress(signer.address)}
+								{abstractAddress(address)}
 								<ContentCopyIcon className="icon" onClick={copyToClipboard} />
 							</>
 						) : (
