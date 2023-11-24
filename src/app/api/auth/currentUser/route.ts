@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { User } from "@/models/user";
 
 // SERVICES
+import { connect } from "@/libs/connect";
 import { verifyJWT } from "@/libs/services/jwt";
 
 // CONSTANTS
@@ -23,12 +24,23 @@ export async function GET() {
 			}
 		);
 
-	const user = verifyJWT(accessToken.value);
-	if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+	try {
+		const user = verifyJWT(accessToken.value);
+		if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-	const existingUser = await User.findById(user._id);
-	if (!existingUser || existingUser.email !== user.email)
-		return Response.json({ error: "Unauthorized" }, { status: 401 });
+		console.log("-----------currentUser-----------");
+		await connect();
 
-	return Response.json({ user: existingUser }, { status: 200 });
+		const existingUser = await User.findById(user._id);
+		if (!existingUser || existingUser.email !== user.email)
+			return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+		return Response.json({ user: existingUser }, { status: 200 });
+	} catch (error) {
+		console.log(error);
+		return Response.json(
+			{ error: "Something went wrong. Please try again" },
+			{ status: 500 }
+		);
+	}
 }

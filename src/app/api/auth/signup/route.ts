@@ -1,4 +1,3 @@
-import { connect } from "@/libs/mongodb";
 import { serialize } from "cookie";
 
 // MODELS
@@ -8,6 +7,7 @@ import { User } from "@/models/user";
 import signupSchema from "@/libs/schemas/signup-shema";
 
 // SERVICES
+import { connect } from "@/libs/connect";
 import { signJWT } from "@/libs/services/jwt";
 
 // CONSTANTS
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 		return Response.json({ error: result.error.message }, { status: 400 });
 
 	try {
+		console.log("-----------signup-----------");
 		await connect();
 
 		const existingUser = await User.findOne({ email: body.email });
