@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import "./_navbar.scss";
 import { usePathname, useRouter } from "next/navigation";
-import { ethers } from "ethers";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { motion } from "framer-motion";
+import { useAddress } from "@thirdweb-dev/react";
+import { useMetamask } from "@thirdweb-dev/react";
 
 // COMPONENTS
 import Drawer from "@/components/Drawer/drawer";
@@ -20,8 +21,6 @@ import EastIcon from "@mui/icons-material/East";
 import {
 	setAuthAction,
 	setUser,
-	setProvider,
-	setSigner,
 	setToast,
 	setDrawerDisplayed,
 	setAnimateNavbar,
@@ -38,9 +37,11 @@ const Navbar = () => {
 	const pathname = usePathname();
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const [loadingSession, setLoadingSession] = useState(false);
-	const { user, animateNavbar, signer, drawerDisplayed, sessionAvailable } =
+	const { user, animateNavbar, drawerDisplayed, sessionAvailable } =
 		useAppSelector((state) => state.common);
+	const connectWithMetamask = useMetamask();
+	const address = useAddress();
+	const [loadingSession, setLoadingSession] = useState(false);
 	const [isAuthPage, setIsAuthPage] = useState(false);
 
 	useEffect(() => {
@@ -72,8 +73,8 @@ const Navbar = () => {
 		router.push("/auth");
 	};
 
-	const connectWithBlockchain = async () => {
-		if (signer) {
+	const connectWithBlockchainNetwork = async () => {
+		if (address) {
 			dispatch(
 				setToast({ type: "success", message: "Wallet already connected" })
 			);
@@ -82,19 +83,14 @@ const Navbar = () => {
 		}
 
 		try {
-			const provider = new ethers.BrowserProvider(window.ethereum);
-
-			await provider.send("eth_requestAccounts", []);
-			dispatch(setProvider(provider));
-
-			const signer = await provider.getSigner();
-			dispatch(setSigner(signer));
+			await connectWithMetamask();
 
 			dispatch(
-				setToast({ type: "success", message: "Wallet successfully connected" })
+				setToast({ type: "success", message: "Wallet connected successfully" })
 			);
 		} catch (error) {
 			console.log(error);
+			dispatch(setToast({ type: "error", message: "Error connecting Wallet" }));
 		}
 	};
 
@@ -164,15 +160,15 @@ const Navbar = () => {
 							<div className="nav__auth logged__in">
 								<div
 									className="wallet__connector"
-									onClick={connectWithBlockchain}
+									onClick={connectWithBlockchainNetwork}
 								>
 									<IoIosWallet className="icon" />
 
 									<div
 										className={`indicator ${
-											signer ? "connected" : "disconnected"
+											address ? "connected" : "disconnected"
 										}`}
-									/>
+									></div>
 								</div>
 
 								<Image

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ethers } from "ethers";
 
 // INTERFACES
 import {
@@ -14,8 +13,6 @@ const initialState: ICommonInitialState = {
 	user: null,
 	animateNavbar: true,
 	authAction: "login",
-	provider: null,
-	signer: null,
 	toast: {
 		type: "",
 		message: "",
@@ -39,15 +36,7 @@ const commonSlice = createSlice({
 		setAuthAction: (state, action: PayloadAction<string>) => {
 			state.authAction = action.payload;
 		},
-		setProvider: (
-			state,
-			action: PayloadAction<ethers.BrowserProvider | null>
-		) => {
-			state.provider = action.payload;
-		},
-		setSigner: (state, action: PayloadAction<ethers.JsonRpcSigner | null>) => {
-			state.signer = action.payload;
-		},
+
 		setToast: (state, action: PayloadAction<IToast>) => {
 			state.toast = action.payload;
 		},
@@ -68,7 +57,6 @@ const commonSlice = createSlice({
 		},
 		logout: (state) => {
 			state.user = null;
-			state.signer = null;
 			state.drawerDisplayed = false;
 		},
 	},
@@ -78,8 +66,6 @@ export const {
 	setUser,
 	setAnimateNavbar,
 	setAuthAction,
-	setProvider,
-	setSigner,
 	setToast,
 	setDrawerDisplayed,
 	setDashboardComponent,

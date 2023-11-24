@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./_loader.scss";
 import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { useRouter } from "next/navigation";
-import { ethers } from "ethers";
 import Image from "next/image";
 
 // ACTIONS
-import { setProvider, setSigner, setUser } from "@/libs/slices/common-slice";
+import { setSessionAvailable, setUser } from "@/libs/slices/common-slice";
 
 // SERVICES
 import { getCurrentUser } from "@/libs/services/api-calls";
@@ -23,32 +22,13 @@ const Loader = () => {
 			if (!user) {
 				const user = await getCurrentUser();
 
-				if (user) {
-					dispatch(setUser(user));
-					connectWithBlockchain();
-				}
-			} else {
-				connectWithBlockchain();
+				if (user) dispatch(setUser(user));
+				else dispatch(setSessionAvailable(false));
 			}
+
+			setTimeout(() => router.replace("/"), 2000);
 		})();
 	}, []);
-
-	const connectWithBlockchain = async () => {
-		try {
-			const provider = new ethers.BrowserProvider(window.ethereum);
-
-			await provider.send("eth_requestAccounts", []);
-			dispatch(setProvider(provider));
-
-			const signer = await provider.getSigner();
-			dispatch(setSigner(signer));
-
-			setTimeout(() => router.replace("/"), 1500);
-		} catch (error) {
-			console.log(error);
-			router.replace("/");
-		}
-	};
 
 	return (
 		<div className="loader__copmonent">

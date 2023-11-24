@@ -23,8 +23,6 @@ export interface ICommonInitialState {
 	user: IUser | null;
 	animateNavbar: boolean;
 	authAction: string;
-	provider: ethers.BrowserProvider | null;
-	signer: ethers.JsonRpcSigner | null;
 	toast: IToast;
 	drawerDisplayed: boolean;
 	dashboardComponent: TDashboardComponent;
