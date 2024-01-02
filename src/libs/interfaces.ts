@@ -54,3 +54,25 @@ export interface ApiResponse {
 	data: any;
 	error: string;
 }
+
+export interface IInitialPropertyData {
+	category:
+		| "house"
+		| "building"
+		| "apartment"
+		| "villa"
+		| "duplex"
+		| "warehouse";
+	bedrooms: number;
+	bathrooms: number;
+	swimmingPool: boolean;
+	introduction: string;
+	description: string;
+	price: string;
+	downPayment: string;
+	size: string;
+	street: string;
+	city: string;
+	state: string;
+	zipCode: string;
+}

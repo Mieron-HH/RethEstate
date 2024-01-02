@@ -1,18 +1,17 @@
 import { cookies } from "next/headers";
 
 // MODELS
-import { User } from "@/models/user";
+import { User } from "@/libs/models/user";
 
 // SERVICES
 import { verifyJWT } from "./jwt";
 
 // CONSTANTS
 import { COOKIE_NAME } from "@/libs/constants";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
-const userFromJwt = async () => {
+const userFromJwt = async (accessToken: RequestCookie | undefined) => {
 	try {
-		const accessToken = cookies().get(COOKIE_NAME);
-		console.log({ accessToken });
 		if (!accessToken) return null;
 
 		const userData = verifyJWT(accessToken.value);
