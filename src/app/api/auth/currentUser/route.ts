@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 
 // MODELS
-import { User } from "@/models/user";
+import { User } from "@/libs/models/user";
 
 // SERVICES
 import { connect } from "@/libs/connect";
@@ -15,14 +15,7 @@ export async function GET() {
 
 	const accessToken = cookieStore.get(COOKIE_NAME);
 	if (!accessToken)
-		return Response.json(
-			{
-				error: "Unauthorized",
-			},
-			{
-				status: 401,
-			}
-		);
+		return Response.json({ error: "Unauthorized" }, { status: 401 });
 
 	try {
 		const user = verifyJWT(accessToken.value);
@@ -37,7 +30,7 @@ export async function GET() {
 
 		return Response.json({ user: existingUser }, { status: 200 });
 	} catch (error) {
-		console.log(error);
+		console.log({ error });
 		return Response.json(
 			{ error: "Something went wrong. Please try again" },
 			{ status: 500 }

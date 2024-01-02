@@ -1,7 +1,7 @@
 import { serialize } from "cookie";
 
 // MODELS
-import { User } from "@/models/user";
+import { User } from "@/libs/models/user";
 
 // SCHEMAS
 import signInSchema from "@/libs/schemas/signin-schema";
@@ -66,6 +66,7 @@ export async function POST(req: Request) {
 			status: 401,
 		});
 	} catch (error) {
+		console.log({ error });
 		return Response.json(
 			{ error: "Something went wrong. Please try again." },
 			{ status: 500 }
