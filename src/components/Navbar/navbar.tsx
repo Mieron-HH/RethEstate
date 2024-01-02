@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/libs/hooks";
 import { motion } from "framer-motion";
 import { useAddress } from "@thirdweb-dev/react";
 import { useMetamask } from "@thirdweb-dev/react";
+import { Sepolia } from "@thirdweb-dev/chains";
 
 // COMPONENTS
 import Drawer from "@/components/Drawer/drawer";
@@ -83,7 +84,7 @@ const Navbar = () => {
 		}
 
 		try {
-			await connectWithMetamask();
+			await connectWithMetamask({ chainId: Sepolia.chainId });
 
 			dispatch(
 				setToast({ type: "success", message: "Wallet connected successfully" })

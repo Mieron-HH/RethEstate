@@ -7,7 +7,7 @@
 	height: 100%;
 	@include display_flex(column, flex-start);
 	position: relative;
-	overflow: scroll;
+	overflow-y: scroll;
 
 	.header {
 		width: 100%;

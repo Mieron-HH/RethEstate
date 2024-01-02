@@ -12,6 +12,7 @@ import Toast from "@/components/Toast/toast";
 
 // DASHBOARD COMPONENTS
 import MyProperties from "@/components/Dashboard-Components/My-Properties/my_properties";
+import ListProperty from "@/components/Dashboard-Components/List-Property/list_property";
 
 // ACTIONS
 import { setToast, setUser } from "@/libs/slices/common-slice";
@@ -50,6 +51,8 @@ const Dashboard = () => {
 
 					<div className="dashboard__content">
 						{dashboardComponent === "myProperty" && <MyProperties />}
+
+						{dashboardComponent === "listProperty" && <ListProperty />}
 					</div>
 
 					<Toast />
